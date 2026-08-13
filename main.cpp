@@ -18,13 +18,15 @@ int main () {
     bool hasCharacter = false;
     std::string usedCharacter;
 
-    do {
+    
 
     std::cout << " ______________________________________\n";
     std::cout << "|                                      |\n";
     std::cout << "|  Welcome to AnimA, A text based RPG  |\n";
     std::cout << "|______________________________________|\n";
 
+    do {
+    // Class selection
     std::cout << "\nPlease choose a role.\n";
     std::cout << "1. Warrior\n";
     std::cout << "2. Archer\n";
@@ -51,10 +53,12 @@ int main () {
             break;
         default:
             std::cout << "Please enter only 1-5!\n";
+            break;
     }
 
+    if (proceed == 'Y' || proceed == 'y') {
     std::cout << "You are now a " << character << '\n';
-
+    }
     }while(hasCharacter == false);
 
 }
@@ -131,7 +135,7 @@ void checkCharacter (std::string& character, char& proceed, bool& hasCharacter, 
         character = usedCharacter;
         hasCharacter = true;
     } else if (proceed == 'N' || proceed == 'n') {
-        // Nothing
+        // Do nothing
     } else {
         std::cout << "Please enter only Y/N\n";
     }
