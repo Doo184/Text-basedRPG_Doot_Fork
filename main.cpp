@@ -26,7 +26,7 @@ int main() {
 
     titleScreen();
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000)); //pause for 2 seconds.
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000)); // pause for 2 seconds.
 
     bool selection = true;
     while (selection) {
@@ -48,6 +48,7 @@ int main() {
 
     std::cout << "Press enter to exit...";
     std::cin.get();
+
     return 0;
 }
 
@@ -58,8 +59,8 @@ const PlayerInfo classes[] = {
         .health = 110,
         .stamina = 60,
         .damage = 10,
-        .critRate = 8.0/100,
-        .critDmg = 10.0/100
+        .critRate = 8.0 / 100,
+        .critDmg = 10.0 / 100
     },
     {
         .playerClass = "Huntsman",
@@ -67,8 +68,8 @@ const PlayerInfo classes[] = {
         .health = 90,
         .stamina = 60,
         .damage = 11,
-        .critRate = 15.0/100,
-        .critDmg = 7.5/100,
+        .critRate = 15.0 / 100,
+        .critDmg = 7.5 / 100
     },
     {
         .playerClass = "Sorcerer",
@@ -76,8 +77,8 @@ const PlayerInfo classes[] = {
         .health = 75,
         .stamina = 100,
         .damage = 15,
-        .critRate = 4.0/100,
-        .critDmg = 6.0/100
+        .critRate = 4.0 / 100,
+        .critDmg = 6.0 / 100
     },
     {
         .playerClass = "Paladin",
@@ -85,8 +86,8 @@ const PlayerInfo classes[] = {
         .health = 150,
         .stamina = 60,
         .damage = 8,
-        .critRate = 3.0/100,
-        .critDmg = 5.0/100
+        .critRate = 3.0 / 100,
+        .critDmg = 5.0 / 100
     },
     {
         .playerClass = "Priest",
@@ -94,8 +95,8 @@ const PlayerInfo classes[] = {
         .health = 85,
         .stamina = 80,
         .damage = 6,
-        .critRate = 10.0/100,
-        .critDmg = 3.0/100
+        .critRate = 10.0 / 100,
+        .critDmg = 3.0 / 100
     }
 };
 
@@ -122,6 +123,7 @@ void classSelect(PlayerInfo& pInfo) {
     int choice{};
 
     bool choosing = true;
+
     while (choosing) {
         std::cout << '>';
         std::cin >> choice;
@@ -131,28 +133,35 @@ void classSelect(PlayerInfo& pInfo) {
                 pInfo = classes[0];
                 choosing = false;
                 break;
+
             case 2:
                 pInfo = classes[1];
                 choosing = false;
                 break;
+
             case 3:
                 pInfo = classes[2];
                 choosing = false;
                 break;
+
             case 4:
                 pInfo = classes[3];
                 choosing = false;
                 break;
+
             case 5:
                 pInfo = classes[4];
                 choosing = false;
                 break;
+
             default:
                 system("cls");
                 classSelectScreen();
+
                 std::cout << "|====================================================================|\n"
                              "| Being blind would not make your journey easy im afraid. (1-5 only) |\n"
                              "|====================================================================|\n\n";
+                break;
         }
     }
 }
@@ -160,6 +169,7 @@ void classSelect(PlayerInfo& pInfo) {
 void displayClass(const PlayerInfo& pInfo) {
     std::cout << pInfo.playerClass << '\n';
     std::cout << "- " << pInfo.classDesc << "\n\n";
+
     std::cout << "Health: " << pInfo.health << '\n';
     std::cout << "Stamina: " << pInfo.stamina << '\n';
     std::cout << "Damage: " << pInfo.damage << '\n';
@@ -178,9 +188,12 @@ bool confSelection() {
         std::cout << '>';
         std::cin >> decision;
 
-        if (decision == 'N' || decision == 'n') return false;
-
-        else if (decision == 'Y' || decision == 'y') return true;
+        if (decision == 'N' || decision == 'n') {
+            return false;
+        }
+        else if (decision == 'Y' || decision == 'y') {
+            return true;
+        }
 
         std::cout << "|=======================================|\n"
                      "| I worry for you... (Try again. [Y/N]) |\n"
@@ -189,10 +202,13 @@ bool confSelection() {
 }
 
 void getPlayerName(PlayerInfo& pInfo) {
-    std::cout << "Well then " << pInfo.playerClass << ", what is your name?\n\n";
+    std::cout << "Well then " << pInfo.playerClass
+              << ", what is your name?\n\n";
+
     std::cout << '>';
     std::getline(std::cin >> std::ws, pInfo.playerName);
 
     system("cls");
+
     std::cout << "Welcome, " << pInfo.playerName << "!!!\n\n";
 }
