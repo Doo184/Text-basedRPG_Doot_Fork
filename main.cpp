@@ -1,142 +1,113 @@
 #include <iostream>
 
-void warriorInfo(std::string& character, char& proceed, bool& hasCharacter, std::string& usedCharacter);
-void archerInfo(std::string& character, char& proceed, bool& hasCharacter, std::string& usedCharacter);
-void sorcererInfo(std::string& character, char& proceed, bool& hasCharacter, std::string& usedCharacter);
-void tankerInfo(std::string& character, char& proceed, bool& hasCharacter, std::string& usedCharacter);
-void wardenInfo(std::string& character, char& proceed, bool& hasCharacter, std::string& usedCharacter);
-void checkCharacter(std::string& character, char& proceed, bool& hasCharacter, std::string& usedCharacter);
+struct pilgrimInfo {
+    std::string path{};
+    std::string description{};
+    double health{}, stamina{}, damage{}, critRate{}, critDmg{};
+};
 
-using text = std::string;
+void drawMenu(pilgrimInfo& pInfo);
+int pathChoice(pilgrimInfo& pInfo);
 
-int main () {
+int main() {
+    pilgrimInfo pInfo;
 
-    int role = {};
-    text character;
-    text warrior;
-    char proceed;
-    bool hasCharacter = false;
-    std::string usedCharacter;
+    drawMenu(pInfo);
 
-    
+    std::cout << "Press enter to exit...";
+    std::cin.ignore();
+    std::cin.get();
+    return 0;
+}
 
-    std::cout << " ______________________________________\n";
-    std::cout << "|                                      |\n";
-    std::cout << "|  Welcome to AnimA, A text based RPG  |\n";
-    std::cout << "|______________________________________|\n";
+void drawMenu(pilgrimInfo& pInfo) {
+    std::cout << "|=================================|\n"
+                 "|        Where Ravens Weep        |\n"
+                 "|        A text-based RPG         |\n"
+                 "|=================================|\n\n"
 
-    do {
-    // Class selection
-    std::cout << "\nPlease choose a role.\n";
-    std::cout << "1. Warrior\n";
-    std::cout << "2. Archer\n";
-    std::cout << "3. Sorcerer\n";
-    std::cout << "4. Tanker\n";
-    std::cout << "5. Warden\n";
-    std::cin >> role;
+                 "|=================================|\n"
+                 "| Choose your path, pilgrim.      |\n"
+                 "|                                 |\n"
+                 "| 1. Warrior                      |\n"
+                 "| 2. Huntsman                     |\n"
+                 "| 3. Sorcerer                     |\n"
+                 "| 4. Paladin                      |\n"
+                 "| 5. Priest                       |\n"
+                 "|=================================|\n\n"
+                 ">>";
 
-    switch (role) {
+    int choice = pathChoice(pInfo);
+    if (choice > 0 && choice <= 5) {
+        std::cout << "======================================================================\n" <<
+                     '\"' << pInfo.path << "\"\n" <<
+                     pInfo.description << "\n\n" <<
+                     "Health: " << pInfo.health << '\n' <<
+                     "Stamina: " << pInfo.stamina << '\n' <<
+                     "Damage: " << pInfo.damage << '\n' <<
+                     "Crit Rate: " << pInfo.critRate * 100.0 << "%\n" <<
+                     "Crit Damage: " << pInfo.critDmg * 100.0 << "%\n"
+                     "======================================================================\n\n";
+    }
+    else {
+        std::cout << "|====================================|\n"
+                     "| That path does not exist, pilgrim. |\n"
+                     "|====================================|\n\n";
+    }
+}
+
+int pathChoice(pilgrimInfo& pInfo) {
+    int choice{};
+    std::cin >> choice;
+
+    switch (choice) {
         case 1:
-            warriorInfo(character, proceed, hasCharacter,usedCharacter);
+            pInfo.path = "Warrior";
+            pInfo.description = "A fierce mortal ready to hack and slash its way to glory.";
+            pInfo.health = 110;
+            pInfo.stamina = 60;
+            pInfo.damage = 10;
+            pInfo.critRate = 8.0/100;
+            pInfo.critDmg = 10.0/100;
             break;
         case 2:
-            archerInfo(character, proceed, hasCharacter,usedCharacter);
+            pInfo.path = "Huntsman";
+            pInfo.description = "A skilled marksman able to penetrate even the thickest of defense.";
+            pInfo.health = 90;
+            pInfo.stamina = 60;
+            pInfo.damage = 11;
+            pInfo.critRate = 15.0/100;
+            pInfo.critDmg = 7.5/100;
             break;
         case 3:
-            sorcererInfo(character, proceed, hasCharacter,usedCharacter);
+            pInfo.path = "Sorcerer";
+            pInfo.description = "A being of great magical affinity, capable of controlling elements";
+            pInfo.health = 75;
+            pInfo.stamina = 100;
+            pInfo.damage = 15;
+            pInfo.critRate = 4.0/100;
+            pInfo.critDmg = 6.0/100;
             break;
         case 4:
-            tankerInfo(character, proceed, hasCharacter,usedCharacter);
+            pInfo.path = "Paladin";
+            pInfo.description = "A sturdy and headstrong individual that can endure any danger coming their way.";
+            pInfo.health = 150;
+            pInfo.stamina = 60;
+            pInfo.damage = 8;
+            pInfo.critRate = 3.0/100;
+            pInfo.critDmg = 5.0/100;
             break;
         case 5:
-            wardenInfo(character, proceed, hasCharacter,usedCharacter);
+            pInfo.path = "Priest";
+            pInfo.description = "Wields a holy power that is capable of healing their allies and vanquish evil.";
+            pInfo.health = 85;
+            pInfo.stamina = 80;
+            pInfo.damage = 6;
+            pInfo.critRate = 10.0/100;
+            pInfo.critDmg = 3.0/100;
             break;
         default:
-            std::cout << "Please enter only 1-5!\n";
             break;
     }
-
-    if (proceed == 'Y' || proceed == 'y') {
-    std::cout << "You are now a " << character << '\n';
-    }
-    }while(hasCharacter == false);
-
-}
-
-void warriorInfo (std::string& character, char& proceed, bool& hasCharacter, std::string& usedCharacter) {
-    std::cout << "The Warrior:\nA fierce mortal ready to hack and slash its way to glory.\n";
-    std::cout << "Health: 110\n";
-    std::cout << "Stamina: 50\n";
-    std::cout << "Damage: 10\n";
-    std::cout << "Range: 5\n";
-    std::cout << "Do you want to proceed?\n";
-    std::cin >> proceed;
-
-    usedCharacter = "Warrior";
-
-    checkCharacter(character, proceed, hasCharacter, usedCharacter);
-}
-void archerInfo (std::string& character, char& proceed, bool& hasCharacter, std::string& usedCharacter) {
-    std::cout << "The Archer:\nA long range combatant able to penetrate even the thickest of defense.\n";
-    std::cout << "Health: 80\n";
-    std::cout << "Stamina: 70\n";
-    std::cout << "Damage: 10\n";
-    std::cout << "Range: 8\n";
-    std::cout << "Do you want to proceed?\n";
-    std::cin >> proceed;
-
-    usedCharacter = "Archer";
-
-    checkCharacter(character, proceed, hasCharacter, usedCharacter);
-    
-}
-void sorcererInfo (std::string& character, char& proceed, bool& hasCharacter, std::string& usedCharacter) {
-    std::cout << "The Sorcerer:\nA powerful magical being capable of controlling matter.\n";
-    std::cout << "Health: 80\n";
-    std::cout << "Stamina: 100\n";
-    std::cout << "Damage: 6\n";
-    std::cout << "Do you want to proceed?\n";
-    std::cin >> proceed;
-
-    usedCharacter = "Sorcerer";
-
-    checkCharacter(character, proceed, hasCharacter, usedCharacter);
-}
-void tankerInfo (std::string& character, char& proceed, bool& hasCharacter, std::string& usedCharacter) {
-    std::cout << "The Tanker:\nHeavy weight capable of absorbing any damage that comes in its way.\n";
-    std::cout << "Health: 130\n";
-    std::cout << "Stamina: 50\n";
-    std::cout << "Damage: 15\n";
-    std::cout << "Do you want to proceed?\n";
-    std::cin >> proceed;
-
-    usedCharacter = "Tanker";
-
-    checkCharacter(character, proceed, hasCharacter, usedCharacter);
-    
-}
-void wardenInfo (std::string& character, char& proceed, bool& hasCharacter, std::string& usedCharacter) {
-    std::cout << "The Warden:\nAn ancient mystique capable of healing its allies and debuffing its enemies.\n";
-    std::cout << "Health: 80\n";
-    std::cout << "Stamina: 100\n";
-    std::cout << "Damage: 8\n";
-    std::cout << "Heal: 10\n";
-    std::cout << "Do you want to proceed?\n";
-    std::cin >> proceed;
-
-    usedCharacter = "Warden";
-
-    checkCharacter(character, proceed, hasCharacter, usedCharacter);
-    
-}
-
-void checkCharacter (std::string& character, char& proceed, bool& hasCharacter, std::string& usedCharacter) {
-    if (proceed == 'Y' || proceed == 'y') {
-        character = usedCharacter;
-        hasCharacter = true;
-    } else if (proceed == 'N' || proceed == 'n') {
-        // Do nothing
-    } else {
-        std::cout << "Please enter only Y/N\n";
-    }
+    return choice;
 }
