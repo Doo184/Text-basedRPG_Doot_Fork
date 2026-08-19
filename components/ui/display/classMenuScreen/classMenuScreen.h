@@ -1,0 +1,6 @@
+#ifndef TEXTBASEDRPG_CLASSSELECTSCREEN_H
+#define TEXTBASEDRPG_CLASSSELECTSCREEN_H
+
+void classMenu();
+
+#endif
